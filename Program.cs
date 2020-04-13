@@ -1,28 +1,21 @@
-﻿using BubbleChartSample.App;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using BubbleChartSample.App;
 
 namespace BubbleChartSample
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EncryptConnectionStrings();
             Application.Run(new ChartSampleApp());
-            
         }
 
-        static void EncryptConnectionStrings()
+        private static void EncryptConnectionStrings()
         {
             string execonfigName = "BubbleChartSample.exe";
             string sectionName = "connectionStrings";

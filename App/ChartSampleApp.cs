@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using BubbleChartSample.Config;
 using BubbleChartSample.Interop;
+using System.Collections.Generic;
 
 namespace BubbleChartSample.App
 {
@@ -31,7 +31,7 @@ namespace BubbleChartSample.App
 
             ExcelObject objExcel = new ExcelObject(isVisible,displayAlerts)
             {
-                CloseExcelFlag = CloseAfterCompleteCheckBox.Checked,
+                CloseExcelAfterCompleteFlag = CloseAfterCompleteCheckBox.Checked,
                 ChartStyleCode = int.Parse(ChartStyleCombo.SelectedValue.ToString()),
                 CollorPatternCode = int.Parse(CollorPatternCombo.SelectedValue.ToString()),
                 TechnologyGroupId = int.Parse(GroupNameList.SelectedValue.ToString())
@@ -47,20 +47,18 @@ namespace BubbleChartSample.App
         private void DisplayChartPicture()
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(Tools.GetImagesFolder());
-            FileInfo chartPicture = GetNewestFile(directoryInfo);
+            FileInfo chartPicture = GetNewestFile(directoryInfo,"*.png");
 
             BubbleChartPicture.Image = System.Drawing.Image.FromFile(chartPicture.FullName);
             BubbleChartPicture.SizeMode = PictureBoxSizeMode.Zoom;
             BubbleChartPicture.Refresh();
         }
 
-        public static FileInfo GetNewestFile(DirectoryInfo directory)
+        public FileInfo GetNewestFile(DirectoryInfo directory, string filePattern)
         {
-            string filePattern = "*.png";
-
             return directory.GetFiles(filePattern)
-                .Union(directory.GetDirectories().Select(d => GetNewestFile(d)))
-                .OrderByDescending(f => (f == null ? DateTime.MinValue : f.LastWriteTime))
+                .Union(directory.GetDirectories().Select(folderInfo => GetNewestFile(folderInfo, filePattern)))
+                .OrderByDescending(newestFile => (newestFile == null ? DateTime.MinValue : newestFile.LastWriteTime))
                 .FirstOrDefault();
         }
 

@@ -14,7 +14,7 @@ namespace BubbleChartSample.Interop
         public int CollorPatternCode { get; set; }
         public int ChartStyleCode { get; set; }
         public int TechnologyGroupId { get; set; }
-        public bool CloseExcelFlag { get; set; }
+        public bool CloseExcelAfterCompleteFlag { get; set; }
         private Application AppExcel { get; set; }
         private List<QuadrantModel> QuadrantDataList { get; set; }
 
@@ -303,7 +303,7 @@ namespace BubbleChartSample.Interop
             workbookFilename.Append(DateTime.Now.ToString("MMM_ddd_HHmmss").ToUpper());
             workbookFilename.Append(".xlsx");
 
-            if (CloseExcelFlag || !AppExcel.Visible)
+            if (CloseExcelAfterCompleteFlag || !AppExcel.Visible)
             {
                 AppExcel.ActiveWorkbook.SaveAs(workbookFilename.ToString());
                 AppExcel.ActiveWorkbook.Close();
