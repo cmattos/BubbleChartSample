@@ -43,20 +43,25 @@
             this.CollorPatternCombo = new System.Windows.Forms.ComboBox();
             this.ChartStyleGroupBorder = new System.Windows.Forms.GroupBox();
             this.ChartStyleCombo = new System.Windows.Forms.ComboBox();
+            this.ExcelApplicationGroupBorder = new System.Windows.Forms.GroupBox();
+            this.IsVisibleCheckBox = new System.Windows.Forms.CheckBox();
+            this.CloseAfterCompleteCheckBox = new System.Windows.Forms.CheckBox();
+            this.DisplayAlertsCheckBox = new System.Windows.Forms.CheckBox();
             this.TechnologyGroupBorder.SuspendLayout();
             this.BubbleChartBorder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BubbleChartPicture)).BeginInit();
             this.HeaderBorder.SuspendLayout();
             this.CollorPatternGroupBorder.SuspendLayout();
             this.ChartStyleGroupBorder.SuspendLayout();
+            this.ExcelApplicationGroupBorder.SuspendLayout();
             this.SuspendLayout();
             // 
             // TechnologyGroupBorder
             // 
             this.TechnologyGroupBorder.Controls.Add(this.GroupNameList);
-            this.TechnologyGroupBorder.Location = new System.Drawing.Point(12, 73);
+            this.TechnologyGroupBorder.Location = new System.Drawing.Point(11, 155);
             this.TechnologyGroupBorder.Name = "TechnologyGroupBorder";
-            this.TechnologyGroupBorder.Size = new System.Drawing.Size(212, 135);
+            this.TechnologyGroupBorder.Size = new System.Drawing.Size(212, 106);
             this.TechnologyGroupBorder.TabIndex = 2;
             this.TechnologyGroupBorder.TabStop = false;
             this.TechnologyGroupBorder.Text = "Technology Groups:";
@@ -66,7 +71,7 @@
             this.GroupNameList.FormattingEnabled = true;
             this.GroupNameList.Location = new System.Drawing.Point(16, 26);
             this.GroupNameList.Name = "GroupNameList";
-            this.GroupNameList.Size = new System.Drawing.Size(179, 95);
+            this.GroupNameList.Size = new System.Drawing.Size(179, 69);
             this.GroupNameList.TabIndex = 2;
             // 
             // BubbleChartBorder
@@ -81,7 +86,7 @@
             this.BubbleChartBorder.Controls.Add(this.BubbleChartPicture);
             this.BubbleChartBorder.Location = new System.Drawing.Point(241, 12);
             this.BubbleChartBorder.Name = "BubbleChartBorder";
-            this.BubbleChartBorder.Size = new System.Drawing.Size(482, 333);
+            this.BubbleChartBorder.Size = new System.Drawing.Size(482, 385);
             this.BubbleChartBorder.TabIndex = 3;
             this.BubbleChartBorder.TabStop = false;
             this.BubbleChartBorder.Text = "Bubble Chart Sample:";
@@ -89,7 +94,7 @@
             // LowCapacityHighSeniorityLabel
             // 
             this.LowCapacityHighSeniorityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LowCapacityHighSeniorityLabel.Location = new System.Drawing.Point(275, 304);
+            this.LowCapacityHighSeniorityLabel.Location = new System.Drawing.Point(275, 356);
             this.LowCapacityHighSeniorityLabel.Name = "LowCapacityHighSeniorityLabel";
             this.LowCapacityHighSeniorityLabel.Size = new System.Drawing.Size(176, 13);
             this.LowCapacityHighSeniorityLabel.TabIndex = 4;
@@ -99,7 +104,7 @@
             // LowCapacityLowSeniorityLabel
             // 
             this.LowCapacityLowSeniorityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LowCapacityLowSeniorityLabel.Location = new System.Drawing.Point(51, 304);
+            this.LowCapacityLowSeniorityLabel.Location = new System.Drawing.Point(51, 356);
             this.LowCapacityLowSeniorityLabel.Name = "LowCapacityLowSeniorityLabel";
             this.LowCapacityLowSeniorityLabel.Size = new System.Drawing.Size(172, 13);
             this.LowCapacityLowSeniorityLabel.TabIndex = 3;
@@ -133,7 +138,7 @@
             this.BubbleChartPicture.InitialImage = ((System.Drawing.Image)(resources.GetObject("BubbleChartPicture.InitialImage")));
             this.BubbleChartPicture.Location = new System.Drawing.Point(18, 47);
             this.BubbleChartPicture.Name = "BubbleChartPicture";
-            this.BubbleChartPicture.Size = new System.Drawing.Size(444, 254);
+            this.BubbleChartPicture.Size = new System.Drawing.Size(444, 306);
             this.BubbleChartPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.BubbleChartPicture.TabIndex = 0;
             this.BubbleChartPicture.TabStop = false;
@@ -160,7 +165,7 @@
             // CollorPatternGroupBorder
             // 
             this.CollorPatternGroupBorder.Controls.Add(this.CollorPatternCombo);
-            this.CollorPatternGroupBorder.Location = new System.Drawing.Point(11, 282);
+            this.CollorPatternGroupBorder.Location = new System.Drawing.Point(11, 335);
             this.CollorPatternGroupBorder.Name = "CollorPatternGroupBorder";
             this.CollorPatternGroupBorder.Size = new System.Drawing.Size(212, 62);
             this.CollorPatternGroupBorder.TabIndex = 5;
@@ -179,7 +184,7 @@
             // ChartStyleGroupBorder
             // 
             this.ChartStyleGroupBorder.Controls.Add(this.ChartStyleCombo);
-            this.ChartStyleGroupBorder.Location = new System.Drawing.Point(12, 214);
+            this.ChartStyleGroupBorder.Location = new System.Drawing.Point(12, 267);
             this.ChartStyleGroupBorder.Name = "ChartStyleGroupBorder";
             this.ChartStyleGroupBorder.Size = new System.Drawing.Size(212, 62);
             this.ChartStyleGroupBorder.TabIndex = 6;
@@ -195,11 +200,60 @@
             this.ChartStyleCombo.Size = new System.Drawing.Size(178, 21);
             this.ChartStyleCombo.TabIndex = 0;
             // 
+            // ExcelApplicationGroupBorder
+            // 
+            this.ExcelApplicationGroupBorder.Controls.Add(this.DisplayAlertsCheckBox);
+            this.ExcelApplicationGroupBorder.Controls.Add(this.IsVisibleCheckBox);
+            this.ExcelApplicationGroupBorder.Controls.Add(this.CloseAfterCompleteCheckBox);
+            this.ExcelApplicationGroupBorder.Location = new System.Drawing.Point(12, 73);
+            this.ExcelApplicationGroupBorder.Name = "ExcelApplicationGroupBorder";
+            this.ExcelApplicationGroupBorder.Size = new System.Drawing.Size(212, 76);
+            this.ExcelApplicationGroupBorder.TabIndex = 9;
+            this.ExcelApplicationGroupBorder.TabStop = false;
+            this.ExcelApplicationGroupBorder.Text = "Excel Application:";
+            // 
+            // IsVisibleCheckBox
+            // 
+            this.IsVisibleCheckBox.AutoSize = true;
+            this.IsVisibleCheckBox.Checked = true;
+            this.IsVisibleCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.IsVisibleCheckBox.Location = new System.Drawing.Point(15, 26);
+            this.IsVisibleCheckBox.Name = "IsVisibleCheckBox";
+            this.IsVisibleCheckBox.Size = new System.Drawing.Size(67, 17);
+            this.IsVisibleCheckBox.TabIndex = 10;
+            this.IsVisibleCheckBox.Text = "Is Visible";
+            this.IsVisibleCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // CloseAfterCompleteCheckBox
+            // 
+            this.CloseAfterCompleteCheckBox.AutoSize = true;
+            this.CloseAfterCompleteCheckBox.Checked = true;
+            this.CloseAfterCompleteCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CloseAfterCompleteCheckBox.Location = new System.Drawing.Point(15, 49);
+            this.CloseAfterCompleteCheckBox.Name = "CloseAfterCompleteCheckBox";
+            this.CloseAfterCompleteCheckBox.Size = new System.Drawing.Size(124, 17);
+            this.CloseAfterCompleteCheckBox.TabIndex = 9;
+            this.CloseAfterCompleteCheckBox.Text = "Close After Complete";
+            this.CloseAfterCompleteCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // DisplayAlertsCheckBox
+            // 
+            this.DisplayAlertsCheckBox.AutoSize = true;
+            this.DisplayAlertsCheckBox.Checked = true;
+            this.DisplayAlertsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DisplayAlertsCheckBox.Location = new System.Drawing.Point(88, 26);
+            this.DisplayAlertsCheckBox.Name = "DisplayAlertsCheckBox";
+            this.DisplayAlertsCheckBox.Size = new System.Drawing.Size(89, 17);
+            this.DisplayAlertsCheckBox.TabIndex = 11;
+            this.DisplayAlertsCheckBox.Text = "Display Alerts";
+            this.DisplayAlertsCheckBox.UseVisualStyleBackColor = true;
+            // 
             // ChartSampleApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 358);
+            this.ClientSize = new System.Drawing.Size(735, 410);
+            this.Controls.Add(this.ExcelApplicationGroupBorder);
             this.Controls.Add(this.ChartStyleGroupBorder);
             this.Controls.Add(this.CollorPatternGroupBorder);
             this.Controls.Add(this.HeaderBorder);
@@ -217,6 +271,8 @@
             this.HeaderBorder.ResumeLayout(false);
             this.CollorPatternGroupBorder.ResumeLayout(false);
             this.ChartStyleGroupBorder.ResumeLayout(false);
+            this.ExcelApplicationGroupBorder.ResumeLayout(false);
+            this.ExcelApplicationGroupBorder.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -236,5 +292,9 @@
         private System.Windows.Forms.ComboBox CollorPatternCombo;
         private System.Windows.Forms.GroupBox ChartStyleGroupBorder;
         private System.Windows.Forms.ComboBox ChartStyleCombo;
+        private System.Windows.Forms.GroupBox ExcelApplicationGroupBorder;
+        private System.Windows.Forms.CheckBox IsVisibleCheckBox;
+        private System.Windows.Forms.CheckBox CloseAfterCompleteCheckBox;
+        private System.Windows.Forms.CheckBox DisplayAlertsCheckBox;
     }
 }

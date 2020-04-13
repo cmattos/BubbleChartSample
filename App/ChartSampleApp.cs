@@ -22,23 +22,21 @@ namespace BubbleChartSample.App
 
         private void RunInteropExcel_Click(object sender, EventArgs e)
         {
-            int iCollorPattern = int.Parse(CollorPatternCombo.SelectedValue.ToString());
-            CreateExcelObject(true, true,iCollorPattern);
+            CreateExcelObject(DisplayAlertsCheckBox.Checked, IsVisibleCheckBox.Checked);
         }
 
-        private void CreateExcelObject(bool displayAlerts, bool isVisible, int collorPattern)
+        private void CreateExcelObject(bool displayAlerts, bool isVisible)
         {
             Cursor = Cursors.WaitCursor;
 
-            ExcelObject objExcel = new ExcelObject
+            ExcelObject objExcel = new ExcelObject(isVisible,displayAlerts)
             {
-                IsVisibleFlag = false,
+                CloseExcelFlag = CloseAfterCompleteCheckBox.Checked,
                 ChartStyleCode = int.Parse(ChartStyleCombo.SelectedValue.ToString()),
-                DisplayAlertsFlag = false,
                 CollorPatternCode = int.Parse(CollorPatternCombo.SelectedValue.ToString()),
                 TechnologyGroupId = int.Parse(GroupNameList.SelectedValue.ToString())
             };
-        
+
             objExcel.GenerateCustomChart(ExcelObject.CustomChartFormat.TechnologyQuadrant);
 
             DisplayChartPicture();

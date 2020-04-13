@@ -11,17 +11,21 @@ namespace BubbleChartSample.Interop
 {
     public class ExcelObject
     {
-        public bool IsVisibleFlag { get; set; }
-        public bool DisplayAlertsFlag { get; set; }
         public int CollorPatternCode { get; set; }
         public int ChartStyleCode { get; set; }
         public int TechnologyGroupId { get; set; }
+        public bool CloseExcelFlag { get; set; }
         private Application AppExcel { get; set; }
         private List<QuadrantModel> QuadrantDataList { get; set; }
 
-        public ExcelObject()
+        public ExcelObject(bool flagVisible, bool flagDisplayAlerts)
         {
-            AppExcel = new Application();
+            AppExcel = new Application()
+            {
+                Visible = flagVisible,
+                DisplayAlerts = flagDisplayAlerts
+            };
+
             if (AppExcel.Visible == true) AppExcel.WindowState = XlWindowState.xlMaximized;
         }
 
@@ -74,22 +78,33 @@ namespace BubbleChartSample.Interop
             int iFirstRow = 2;
             int iLastRow = iCurrentRow--;
 
+            SetReportWorksheetRanges(reportWorksheet, iFirstRow, iLastRow);
+        }
+
+        private void SetReportWorksheetRanges(Worksheet reportWorksheet, int iFirstRow, int iLastRow)
+        {
             Range titleRow = reportWorksheet.get_Range("A1", "E1");
-            titleRow.Font.Bold = true;            
+            Range tableRange = reportWorksheet.get_Range("A1", "E" + iLastRow.ToString());
+            Range chartDataRange = reportWorksheet.get_Range("C" + iFirstRow.ToString(), "E" + iLastRow.ToString());
+            Range technologyRange = reportWorksheet.get_Range("B" + iFirstRow.ToString(), "B" + iLastRow.ToString());
+
+            reportWorksheet.Names.Add("TitleRange", titleRow);
+            reportWorksheet.Names.Add("TableRange", tableRange);
+            reportWorksheet.Names.Add("ChartDataRange", chartDataRange);
+            reportWorksheet.Names.Add("TechnologyRange", technologyRange);
+
+            FormatReportWorksheet(reportWorksheet, titleRow, tableRange);
+        }
+
+        private void FormatReportWorksheet(Worksheet reportWorksheet, Range titleRow, Range tableRange)
+        {
+            titleRow.Font.Bold = true;
 
             reportWorksheet.Rows.Font.Size = 9;
             reportWorksheet.Columns.AutoFit();
             reportWorksheet.Rows.AutoFit();
 
-            Range tableRange = reportWorksheet.get_Range("A1", "E" + iLastRow.ToString());
-            Range chartDataRange = reportWorksheet.get_Range("C" + iFirstRow.ToString(), "E" + iLastRow.ToString());
-            Range technologyRange = reportWorksheet.get_Range("B" + iFirstRow.ToString(), "B" + iLastRow.ToString());
-
-            reportWorksheet.Names.Add("TableRange", tableRange);
-            reportWorksheet.Names.Add("ChartDataRange", chartDataRange);
-            reportWorksheet.Names.Add("TechnologyRange", technologyRange);
-
-            reportWorksheet.ListObjects.AddEx(XlListObjectSourceType.xlSrcRange, tableRange, Type.Missing, XlYesNoGuess.xlYes,Type.Missing).Name = "SampleTableStyle";
+            reportWorksheet.ListObjects.AddEx(XlListObjectSourceType.xlSrcRange, tableRange, Type.Missing, XlYesNoGuess.xlYes, Type.Missing).Name = "SampleTableStyle";
             reportWorksheet.ListObjects.get_Item("SampleTableStyle").TableStyle = "TableStyleMedium16";
         }
 
@@ -118,10 +133,22 @@ namespace BubbleChartSample.Interop
             reportWorksheet.Name = "Data";
             chartWorksheet.Name = "Chart";
 
+            RemoveWorksheetsGridLInes();
+        }
+
+        private  void RemoveWorksheetsGridLInes()
+        {
+            Worksheet chartWorksheet = (Worksheet)AppExcel.Worksheets["Chart"];
+            Worksheet reportWorksheet = (Worksheet)AppExcel.Worksheets["Data"];
+
+            reportWorksheet.Select();
+            AppExcel.ActiveWindow.DisplayGridlines = false;
+
+            chartWorksheet.Select();
             AppExcel.ActiveWindow.DisplayGridlines = false;
         }
 
-        List<string> RangeToList(Range rangeToConvert)
+        private List<string> RangeToList(Range rangeToConvert)
         {
             object[,] cellValues = (object[,])rangeToConvert.Value2;
             List<string> listRangeValues = cellValues.Cast<object>().ToList().ConvertAll(x => Convert.ToString(x));
@@ -133,6 +160,40 @@ namespace BubbleChartSample.Interop
             Worksheet chartWorksheet = (Worksheet)AppExcel.Worksheets["Chart"];
             Worksheet reportWorksheet = (Worksheet)AppExcel.Worksheets["Data"];
 
+            Chart chartPage = InsertBubbleChart(chartWorksheet, reportWorksheet);
+
+            Series series1 = FormatChartSeries(chartPage);
+
+            FormatChartAxis(chartPage);
+
+            SetDataLabelsValuesFromCells(reportWorksheet, series1);
+
+            SetBubbleCollorsByCategory(series1);
+
+            chartPage.ChartStyle = ChartStyleCode;
+
+            CopyChartPictureToClipboard(reportWorksheet, chartPage);
+
+            SaveChartPictureFromClipboard();
+
+            SaveWorkbookAndClose();
+        }
+
+        private Series FormatChartSeries(Chart chartPage)
+        {
+            Series series1 = (Series)chartPage.SeriesCollection(1);
+            series1.HasDataLabels = true;
+
+            series1.DataLabels(0).Position = XlDataLabelPosition.xlLabelPositionCenter;
+            series1.DataLabels(0).ShowCategoryName = false;
+            series1.DataLabels(0).ShowValue = false;
+            series1.DataLabels(0).ShowRange = true;
+            series1.DataLabels(0).Font.Bold = true;
+            return series1;
+        }
+
+        private Chart InsertBubbleChart(Worksheet chartWorksheet, Worksheet reportWorksheet)
+        {
             ChartObjects xlCharts = (ChartObjects)chartWorksheet.ChartObjects(Type.Missing);
             ChartObject myChart = xlCharts.Add(5, 5, 600, 330);
 
@@ -141,17 +202,18 @@ namespace BubbleChartSample.Interop
             chartPage.ChartType = XlChartType.xlBubble;
             chartPage.HasLegend = false;
 
+            Range chartRange = reportWorksheet.Range["ChartDataRange"];
+            chartPage.SetSourceData(chartRange);
+            return chartPage;
+        }
+
+        private void FormatChartAxis(Chart chartPage)
+        {
             Axis yAxis = (Axis)chartPage.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
             Axis xAxis = (Axis)chartPage.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
 
             string xAxisTitle = "   →    →    →    S E N I O R I T Y   →    →    →";
             string yAxisTitle = "   →    →    →    C A P A C I T Y   →    →    →";
-
-            Range chartRange = reportWorksheet.Range["ChartDataRange"];
-            chartPage.SetSourceData(chartRange);
-
-            Series series1 = (Series)chartPage.SeriesCollection(1);
-            series1.HasDataLabels = true;
 
             xAxis.HasTitle = true;
             xAxis.AxisTitle.Text = xAxisTitle;
@@ -162,13 +224,10 @@ namespace BubbleChartSample.Interop
             yAxis.AxisTitle.Text = yAxisTitle;
             yAxis.MinimumScale = 0;
             yAxis.MaximumScale = 10;
+        }
 
-            series1.DataLabels(0).Position = XlDataLabelPosition.xlLabelPositionCenter;
-            series1.DataLabels(0).ShowCategoryName = false;
-            series1.DataLabels(0).ShowValue = false;
-            series1.DataLabels(0).ShowRange = true;
-            series1.DataLabels(0).Font.Bold = true;
-
+        private void SetDataLabelsValuesFromCells(Worksheet reportWorksheet, Series series1)
+        {
             int msoChartFieldRange = 7;
             int msoFieldPosition = 0;
 
@@ -176,7 +235,10 @@ namespace BubbleChartSample.Interop
             string technologyRangeAbsoluteAddress = "=" + technologyRange.Worksheet.Name + "!" + technologyRange.Address;
 
             series1.DataLabels(0).Format.TextFrame2.TextRange.InsertChartField(msoChartFieldRange, technologyRangeAbsoluteAddress, msoFieldPosition);
+        }
 
+        private void SetBubbleCollorsByCategory(Series series1)
+        {
             int iBubbleColor = CollorPatternCode;
 
             QuadrantModel firstTechnologyGroup = QuadrantDataList.Find(QuadrantDetail => QuadrantDetail.TechnologyName == series1.DataLabels(1).Text.ToString());
@@ -203,27 +265,23 @@ namespace BubbleChartSample.Interop
                 series1.Points(iDataLabel).Interior.ColorIndex = iBubbleColor;
                 series1.Points(iDataLabel).Format.Fill.Transparency = 0.4;
             }
+        }
 
-            chartPage.ChartStyle = ChartStyleCode;
-
+        private void CopyChartPictureToClipboard(Worksheet reportWorksheet, Chart chartPage)
+        {
             System.Windows.Forms.Clipboard.Clear();
-
             chartPage.CopyPicture();
             reportWorksheet.Paste();
-
             reportWorksheet.Shapes.Item(reportWorksheet.Shapes.Count).Cut();
+        }
 
+        private void SaveChartPictureFromClipboard()
+        {
             StringBuilder chartImageFilename = new StringBuilder();
             chartImageFilename.Append(Tools.GetImagesFolder());
             chartImageFilename.Append("\\TechnologyQuadrant_");
             chartImageFilename.Append(DateTime.Now.ToString("MMM_ddd_HHmmss").ToUpper());
             chartImageFilename.Append(".png");
-
-            StringBuilder workbookFilename = new StringBuilder();
-            workbookFilename.Append(Tools.GetExcelFolder());
-            workbookFilename.Append("\\TechnologyQuadrant_");
-            workbookFilename.Append(DateTime.Now.ToString("MMM_ddd_HHmmss").ToUpper());
-            workbookFilename.Append(".xlsx");
 
             BitmapEncoder bmpEncoder = new BmpBitmapEncoder();
 
@@ -235,11 +293,23 @@ namespace BubbleChartSample.Interop
                 System.Drawing.Image imgGraph = new System.Drawing.Bitmap(outStream);
                 imgGraph.Save(chartImageFilename.ToString());
             }
+        }
 
-            AppExcel.ActiveWorkbook.SaveAs(workbookFilename.ToString());
-            AppExcel.ActiveWorkbook.Close();
-            AppExcel.Quit();
-            AppExcel = null;
+        private void SaveWorkbookAndClose()
+        {
+            StringBuilder workbookFilename = new StringBuilder();
+            workbookFilename.Append(Tools.GetExcelFolder());
+            workbookFilename.Append("\\TechnologyQuadrant_");
+            workbookFilename.Append(DateTime.Now.ToString("MMM_ddd_HHmmss").ToUpper());
+            workbookFilename.Append(".xlsx");
+
+            if (CloseExcelFlag || !AppExcel.Visible)
+            {
+                AppExcel.ActiveWorkbook.SaveAs(workbookFilename.ToString());
+                AppExcel.ActiveWorkbook.Close();
+                AppExcel.Quit();
+                AppExcel = null;
+            }
         }
     }
 }
