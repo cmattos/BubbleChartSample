@@ -86,7 +86,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Screenshots\BubbleChartSample1.png" />
+    <Content Include="Screenshots\BubbleChartSample2.png" />
+    <Content Include="Screenshots\BubbleChartSample3.png" />
+    <Content Include="Screenshots\BubbleChartSample4.png" />
+  </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>

@@ -136,7 +136,7 @@ namespace BubbleChartSample.Interop
             RemoveWorksheetsGridLInes();
         }
 
-        private  void RemoveWorksheetsGridLInes()
+        private void RemoveWorksheetsGridLInes()
         {
             Worksheet chartWorksheet = (Worksheet)AppExcel.Worksheets["Chart"];
             Worksheet reportWorksheet = (Worksheet)AppExcel.Worksheets["Data"];
