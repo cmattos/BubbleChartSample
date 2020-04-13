@@ -14,9 +14,9 @@
 <h2>Motivação</h2>
 A origem desta apliaçação de exemplo está no exercício para apresentar de forma visual e dinâmica, a capacidade e senioridade, de uma determinada empresa, em grupos de tecnologias, representadas num modelo de quadrante, seguindo o conceito abaixo: 
 
-</br>
-<img src="/Screenshots/quadrant_definition.png" height="200px" width="300px"/>
-</br>
+<h2>
+<img src="/Screenshots/quadrant_definition.png" height="250px" width="400px"/>
+</he>
 
 <h2>Exemplo desta representação gráfica: </h2>
 
