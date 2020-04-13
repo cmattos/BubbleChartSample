@@ -1,4 +1,4 @@
-<h1> Gráfico de Bolhas com C# e Interoperabilidade com Excel</h1>
+<h1> Gráfico de Bolhas com C# e Microsoft.Office.Interop.Excel</h1>
 
 <i>Exemplo de aplicação Windows Forms (C#) demonstrando a utilização do namespace Microsoft.Office.Interop.Excel para criar um gráfico de bolhas (Bubble Chart) dinamicamente. </i>
 
