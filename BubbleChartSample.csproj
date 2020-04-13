@@ -91,6 +91,8 @@
     <Content Include="Screenshots\BubbleChartSample2.png" />
     <Content Include="Screenshots\BubbleChartSample3.png" />
     <Content Include="Screenshots\BubbleChartSample4.png" />
+    <Content Include="Screenshots\quadrant_definition.png" />
+    <Content Include="Screenshots\quadrant_sample.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
