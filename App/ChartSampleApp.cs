@@ -54,7 +54,7 @@ namespace BubbleChartSample.App
             BubbleChartPicture.Refresh();
         }
 
-        public FileInfo GetNewestFile(DirectoryInfo directory, string filePattern)
+        private FileInfo GetNewestFile(DirectoryInfo directory, string filePattern)
         {
             return directory.GetFiles(filePattern)
                 .Union(directory.GetDirectories().Select(folderInfo => GetNewestFile(folderInfo, filePattern)))
@@ -62,7 +62,7 @@ namespace BubbleChartSample.App
                 .FirstOrDefault();
         }
 
-        public void LoadCollorPatternCombo()
+        private void LoadCollorPatternCombo()
         {
             Dictionary<string, int> collorPatterns = new Dictionary<string, int>()
             {
@@ -80,7 +80,7 @@ namespace BubbleChartSample.App
             CollorPatternCombo.ValueMember = "Value";
         }
 
-        public void LoadChartStyleCombo()
+        private void LoadChartStyleCombo()
         {
             Dictionary<string, int> chartStyles = new Dictionary<string, int>()
             {
@@ -102,7 +102,7 @@ namespace BubbleChartSample.App
             ChartStyleCombo.ValueMember = "Value";
         }
 
-        public void LoadGroupNameList()
+        private void LoadGroupNameList()
         {
             Dictionary<string, int> groupNamesList = new Dictionary<string, int>()
             {
