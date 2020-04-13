@@ -44,9 +44,9 @@
             this.ChartStyleGroupBorder = new System.Windows.Forms.GroupBox();
             this.ChartStyleCombo = new System.Windows.Forms.ComboBox();
             this.ExcelApplicationGroupBorder = new System.Windows.Forms.GroupBox();
+            this.DisplayAlertsCheckBox = new System.Windows.Forms.CheckBox();
             this.IsVisibleCheckBox = new System.Windows.Forms.CheckBox();
             this.CloseAfterCompleteCheckBox = new System.Windows.Forms.CheckBox();
-            this.DisplayAlertsCheckBox = new System.Windows.Forms.CheckBox();
             this.TechnologyGroupBorder.SuspendLayout();
             this.BubbleChartBorder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BubbleChartPicture)).BeginInit();
@@ -86,7 +86,7 @@
             this.BubbleChartBorder.Controls.Add(this.BubbleChartPicture);
             this.BubbleChartBorder.Location = new System.Drawing.Point(241, 12);
             this.BubbleChartBorder.Name = "BubbleChartBorder";
-            this.BubbleChartBorder.Size = new System.Drawing.Size(482, 385);
+            this.BubbleChartBorder.Size = new System.Drawing.Size(586, 385);
             this.BubbleChartBorder.TabIndex = 3;
             this.BubbleChartBorder.TabStop = false;
             this.BubbleChartBorder.Text = "Bubble Chart Sample:";
@@ -94,7 +94,7 @@
             // LowCapacityHighSeniorityLabel
             // 
             this.LowCapacityHighSeniorityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.LowCapacityHighSeniorityLabel.Location = new System.Drawing.Point(275, 356);
+            this.LowCapacityHighSeniorityLabel.Location = new System.Drawing.Point(379, 356);
             this.LowCapacityHighSeniorityLabel.Name = "LowCapacityHighSeniorityLabel";
             this.LowCapacityHighSeniorityLabel.Size = new System.Drawing.Size(176, 13);
             this.LowCapacityHighSeniorityLabel.TabIndex = 4;
@@ -114,7 +114,7 @@
             // HighCapacityHighSeniorityLabel
             // 
             this.HighCapacityHighSeniorityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.HighCapacityHighSeniorityLabel.Location = new System.Drawing.Point(275, 31);
+            this.HighCapacityHighSeniorityLabel.Location = new System.Drawing.Point(379, 31);
             this.HighCapacityHighSeniorityLabel.Name = "HighCapacityHighSeniorityLabel";
             this.HighCapacityHighSeniorityLabel.Size = new System.Drawing.Size(174, 13);
             this.HighCapacityHighSeniorityLabel.TabIndex = 2;
@@ -138,7 +138,7 @@
             this.BubbleChartPicture.InitialImage = ((System.Drawing.Image)(resources.GetObject("BubbleChartPicture.InitialImage")));
             this.BubbleChartPicture.Location = new System.Drawing.Point(18, 47);
             this.BubbleChartPicture.Name = "BubbleChartPicture";
-            this.BubbleChartPicture.Size = new System.Drawing.Size(444, 306);
+            this.BubbleChartPicture.Size = new System.Drawing.Size(548, 306);
             this.BubbleChartPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.BubbleChartPicture.TabIndex = 0;
             this.BubbleChartPicture.TabStop = false;
@@ -212,6 +212,18 @@
             this.ExcelApplicationGroupBorder.TabStop = false;
             this.ExcelApplicationGroupBorder.Text = "Excel Application:";
             // 
+            // DisplayAlertsCheckBox
+            // 
+            this.DisplayAlertsCheckBox.AutoSize = true;
+            this.DisplayAlertsCheckBox.Checked = true;
+            this.DisplayAlertsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DisplayAlertsCheckBox.Location = new System.Drawing.Point(88, 26);
+            this.DisplayAlertsCheckBox.Name = "DisplayAlertsCheckBox";
+            this.DisplayAlertsCheckBox.Size = new System.Drawing.Size(89, 17);
+            this.DisplayAlertsCheckBox.TabIndex = 11;
+            this.DisplayAlertsCheckBox.Text = "Display Alerts";
+            this.DisplayAlertsCheckBox.UseVisualStyleBackColor = true;
+            // 
             // IsVisibleCheckBox
             // 
             this.IsVisibleCheckBox.AutoSize = true;
@@ -236,23 +248,11 @@
             this.CloseAfterCompleteCheckBox.Text = "Close After Complete";
             this.CloseAfterCompleteCheckBox.UseVisualStyleBackColor = true;
             // 
-            // DisplayAlertsCheckBox
-            // 
-            this.DisplayAlertsCheckBox.AutoSize = true;
-            this.DisplayAlertsCheckBox.Checked = true;
-            this.DisplayAlertsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.DisplayAlertsCheckBox.Location = new System.Drawing.Point(88, 26);
-            this.DisplayAlertsCheckBox.Name = "DisplayAlertsCheckBox";
-            this.DisplayAlertsCheckBox.Size = new System.Drawing.Size(89, 17);
-            this.DisplayAlertsCheckBox.TabIndex = 11;
-            this.DisplayAlertsCheckBox.Text = "Display Alerts";
-            this.DisplayAlertsCheckBox.UseVisualStyleBackColor = true;
-            // 
             // ChartSampleApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 410);
+            this.ClientSize = new System.Drawing.Size(839, 410);
             this.Controls.Add(this.ExcelApplicationGroupBorder);
             this.Controls.Add(this.ChartStyleGroupBorder);
             this.Controls.Add(this.CollorPatternGroupBorder);
