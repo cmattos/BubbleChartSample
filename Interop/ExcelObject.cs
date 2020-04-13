@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Text;
+﻿using BubbleChartSample.Config;
 using BubbleChartSample.Data;
-using BubbleChartSample.Config;
-using System.Collections.Generic;
-using System.Windows.Media.Imaging;
 using Microsoft.Office.Interop.Excel;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Media.Imaging;
 
 namespace BubbleChartSample.Interop
 {
@@ -26,7 +25,10 @@ namespace BubbleChartSample.Interop
                 DisplayAlerts = flagDisplayAlerts
             };
 
-            if (AppExcel.Visible == true) AppExcel.WindowState = XlWindowState.xlMaximized;
+            if (AppExcel.Visible == true)
+            {
+                AppExcel.WindowState = XlWindowState.xlMaximized;
+            }
         }
 
         public enum CustomChartFormat
@@ -136,7 +138,7 @@ namespace BubbleChartSample.Interop
             RemoveWorksheetsGridLInes();
         }
 
-        private  void RemoveWorksheetsGridLInes()
+        private void RemoveWorksheetsGridLInes()
         {
             Worksheet chartWorksheet = (Worksheet)AppExcel.Worksheets["Chart"];
             Worksheet reportWorksheet = (Worksheet)AppExcel.Worksheets["Data"];
@@ -147,14 +149,6 @@ namespace BubbleChartSample.Interop
             chartWorksheet.Select();
             AppExcel.ActiveWindow.DisplayGridlines = false;
         }
-
-        private List<string> RangeToList(Range rangeToConvert)
-        {
-            object[,] cellValues = (object[,])rangeToConvert.Value2;
-            List<string> listRangeValues = cellValues.Cast<object>().ToList().ConvertAll(x => Convert.ToString(x));
-            return listRangeValues;
-        }
-
         private void GenerateQuadrantChart()
         {
             Worksheet chartWorksheet = (Worksheet)AppExcel.Worksheets["Chart"];

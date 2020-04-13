@@ -1,44 +1,10 @@
-﻿using System.IO;
-using System.Configuration;
+﻿using System.Configuration;
+using System.IO;
 
 namespace BubbleChartSample.Config
 {
     public static class Tools
     {
-        public static void ToggleSectionEncryption(string appConfigName, string sectionName)
-        {
-            Configuration config = ConfigurationManager.OpenExeConfiguration(appConfigName);
-
-            ConnectionStringsSection section =
-                config.GetSection(sectionName) as ConnectionStringsSection;
-
-            if (!section.SectionInformation.IsProtected)
-            {
-                section.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
-            }
-            else
-            {
-                section.SectionInformation.UnprotectSection();
-            }
-
-            config.Save();
-        }
-
-        public static string GetConnectionStringByName(string cnStringName)
-        {
-            string returnValue = null;
-
-            ConnectionStringSettings settings =
-                ConfigurationManager.ConnectionStrings[cnStringName];
-
-            if (settings != null)
-            {
-                returnValue = settings.ConnectionString;
-            }
-
-            return returnValue;
-        }
-
         public static string GetApplicationPath()
         {
             return System.Windows.Forms.Application.StartupPath;

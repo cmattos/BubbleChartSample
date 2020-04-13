@@ -1,6 +1,6 @@
-﻿using System;
+﻿using BubbleChartSample.App;
+using System;
 using System.Windows.Forms;
-using BubbleChartSample.App;
 
 namespace BubbleChartSample
 {
@@ -11,15 +11,7 @@ namespace BubbleChartSample
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            EncryptConnectionStrings();
             Application.Run(new ChartSampleApp());
-        }
-
-        private static void EncryptConnectionStrings()
-        {
-            string execonfigName = "BubbleChartSample.exe";
-            string sectionName = "connectionStrings";
-            Config.Tools.ToggleSectionEncryption(execonfigName, sectionName);
         }
     }
 
