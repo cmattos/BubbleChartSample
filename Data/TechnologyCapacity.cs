@@ -1,7 +1,5 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using BubbleChartSample.Config;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace BubbleChartSample.Data
@@ -10,7 +8,7 @@ namespace BubbleChartSample.Data
     {
         public List<QuadrantModel> GetInMemoryData(int TechnologyGroupId)
         {
-            List<QuadrantModel> listQuadrantData = new List<QuadrantModel>
+            var listQuadrantData = new List<QuadrantModel>
             {
                 new QuadrantModel { GroupID = 1, GroupName = "Techniques", TechnologyName = "Microservices", Seniority = 8.00, Capacity = 1.80, BubbleSize = 0.40 },
                 new QuadrantModel { GroupID = 1, GroupName = "Techniques", TechnologyName = "Container Security Scanning", Seniority = 7.00, Capacity = 2.80, BubbleSize = 0.40 },
@@ -39,14 +37,12 @@ namespace BubbleChartSample.Data
                 new QuadrantModel { GroupID = 4, GroupName = "Data Engineering", TechnologyName = "Spark", Seniority = 7.60, Capacity = 5.00, BubbleSize = 0.80 }
             };
 
-            List<QuadrantModel> selectedTechnologies = listQuadrantData;
-
             if (TechnologyGroupId > 0)
             {
-                selectedTechnologies = listQuadrantData.Where(x => x.GroupID.Equals(TechnologyGroupId)).ToList();
+                return listQuadrantData.Where(x => x.GroupID.Equals(TechnologyGroupId)).ToList();
             }
 
-            return selectedTechnologies;
+            return listQuadrantData;
         }
 
     }
