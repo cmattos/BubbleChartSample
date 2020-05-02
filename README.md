@@ -12,7 +12,7 @@
 </ul>
 
 <h2>Motivação</h2>
-A origem desta apliaçação de exemplo está no exercício para apresentar de forma visual e dinâmica, a capacidade e senioridade, de uma determinada empresa, em grupos de tecnologias, representadas num modelo de quadrante, seguindo o conceito abaixo: 
+A origem desta aplicação de exemplo está no exercício para apresentar de forma visual e dinâmica, a capacidade e senioridade, de uma determinada empresa/time/grupo de profissionais de tecnologia, representadas num modelo de quadrante, seguindo o conceito abaixo: 
 
 <h2>
 <img src="/Screenshots/quadrant_definition.png" height="250px" width="400px"/>
