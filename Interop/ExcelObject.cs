@@ -46,6 +46,7 @@ namespace BubbleChartSample.Interop
                     CreateQuadrantSpreadsheets();
                     LoadQuadrantData();
                     GenerateQuadrantChart();
+                    SaveWorkbookAndCloseExcel();
                     break;
                 case CustomChartFormat.TechnologyRadar:
                     CreateTechnologyRadarSpreadsheets(AppExcel);
@@ -149,6 +150,7 @@ namespace BubbleChartSample.Interop
             chartWorksheet.Select();
             AppExcel.ActiveWindow.DisplayGridlines = false;
         }
+
         private void GenerateQuadrantChart()
         {
             Worksheet chartWorksheet = (Worksheet)AppExcel.Worksheets["Chart"];
@@ -156,7 +158,7 @@ namespace BubbleChartSample.Interop
 
             Chart chartPage = InsertBubbleChart(chartWorksheet, reportWorksheet);
 
-            Series series1 = FormatChartSeries(chartPage);
+            Series series1 = FormatChartDataSeries(chartPage);
 
             FormatChartAxis(chartPage);
 
@@ -164,16 +166,19 @@ namespace BubbleChartSample.Interop
 
             SetBubbleCollorsByCategory(series1);
 
-            chartPage.ChartStyle = ChartStyleCode;
+            ApplyChartStyle(chartPage);
 
             CopyChartPictureToClipboard(reportWorksheet, chartPage);
 
             SaveChartPictureFromClipboard();
-
-            SaveWorkbookAndClose();
         }
 
-        private Series FormatChartSeries(Chart chartPage)
+        private void ApplyChartStyle(Chart chartPage)
+        {
+            chartPage.ChartStyle = ChartStyleCode;
+        }
+
+        private Series FormatChartDataSeries(Chart chartPage)
         {
             Series series1 = (Series)chartPage.SeriesCollection(1);
             series1.HasDataLabels = true;
@@ -289,7 +294,7 @@ namespace BubbleChartSample.Interop
             }
         }
 
-        private void SaveWorkbookAndClose()
+        private void SaveWorkbookAndCloseExcel()
         {
             StringBuilder workbookFilename = new StringBuilder();
             workbookFilename.Append(Tools.GetExcelFolder());
