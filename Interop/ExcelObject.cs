@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace BubbleChartSample.Interop
 {
+#nullable enable
     public class ExcelObject
     {
         public int CollorPatternCode { get; set; }
@@ -15,7 +16,7 @@ namespace BubbleChartSample.Interop
         public int TechnologyGroupId { get; set; }
         public bool CloseExcelAfterCompleteFlag { get; set; }
         private Application AppExcel { get; set; }
-        private List<QuadrantModel> QuadrantDataList { get; set; }
+        private List<QuadrantModel> QuadrantDataList { get; set; } = new List<QuadrantModel>();
 
         public ExcelObject(bool flagVisible, bool flagDisplayAlerts)
         {
@@ -49,10 +50,10 @@ namespace BubbleChartSample.Interop
                     SaveWorkbookAndCloseExcel();
                     break;
                 case CustomChartFormat.TechnologyRadar:
-                    CreateTechnologyRadarSpreadsheets(AppExcel);
+                    CreateTechnologyRadarSpreadsheets();
                     break;
                 case CustomChartFormat.TechOfficeUtilization:
-                    CreateTechOfficeUtilizationSpreadsheets(AppExcel);
+                    CreateTechOfficeUtilizationSpreadsheets();
                     break;
                 default:
                     break;
@@ -111,12 +112,12 @@ namespace BubbleChartSample.Interop
             reportWorksheet.ListObjects.get_Item("SampleTableStyle").TableStyle = "TableStyleMedium16";
         }
 
-        private void CreateTechOfficeUtilizationSpreadsheets(Application appExcel)
+        private void CreateTechOfficeUtilizationSpreadsheets()
         {
             throw new NotImplementedException();
         }
 
-        private void CreateTechnologyRadarSpreadsheets(Application appExcel)
+        private void CreateTechnologyRadarSpreadsheets()
         {
             throw new NotImplementedException();
         }
@@ -286,12 +287,10 @@ namespace BubbleChartSample.Interop
 
             bmpEncoder.Frames.Add(BitmapFrame.Create(System.Windows.Clipboard.GetImage()));
 
-            using (System.IO.MemoryStream outStream = new System.IO.MemoryStream())
-            {
-                bmpEncoder.Save(outStream);
-                System.Drawing.Image imgGraph = new System.Drawing.Bitmap(outStream);
-                imgGraph.Save(chartImageFilename.ToString());
-            }
+            using System.IO.MemoryStream outStream = new System.IO.MemoryStream();
+            bmpEncoder.Save(outStream);
+            System.Drawing.Image imgGraph = new System.Drawing.Bitmap(outStream);
+            imgGraph.Save(chartImageFilename.ToString());
         }
 
         private void SaveWorkbookAndCloseExcel()
@@ -307,8 +306,8 @@ namespace BubbleChartSample.Interop
                 AppExcel.ActiveWorkbook.SaveAs(workbookFilename.ToString());
                 AppExcel.ActiveWorkbook.Close();
                 AppExcel.Quit();
-                AppExcel = null;
             }
         }
     }
+#nullable restore
 }
